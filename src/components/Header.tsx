@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
       <div className="flex justify-between items-center px-8 py-5 max-w-7xl mx-auto">
         <div className="flex items-center gap-3 group cursor-pointer">
           <Terminal className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-          <span className="text-lg font-black tracking-tighter text-[#dae2fd] uppercase font-inter leading-none">SHREYASH</span>
+          <span className="text-lg font-black tracking-tighter text-[#dae2fd] uppercase font-inter leading-none">SHREYASH GUPTA</span>
         </div>
         <div className="hidden md:flex items-center gap-10">
           <a href="#" className="text-primary font-bold text-xs tracking-[0.2em] px-3 py-1 rounded transition-all">HOME</a>

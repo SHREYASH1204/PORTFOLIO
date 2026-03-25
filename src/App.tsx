@@ -13,6 +13,7 @@ import { projects, socialLinks } from './data/mockData';
 import { Terminal, Briefcase, Mail } from 'lucide-react';
 import { SalesDashboard } from './components/SalesDashboard';
 import { CustomCursor } from './components/CustomCursor';
+import { MobileNav } from './components/MobileNav';
 
 const App: React.FC = () => {
   const [selectedDemoId, setSelectedDemoId] = useState<number | null>(null);
@@ -21,6 +22,7 @@ const App: React.FC = () => {
     <div className="bg-background text-on-surface relative min-h-screen selection:bg-primary/20 cursor-none">
       <CustomCursor />
       <Header />
+      <MobileNav />
       
       {/* Background Elements */}
       <div className="fixed inset-0 neural-mesh pointer-events-none opacity-40"></div>
@@ -66,7 +68,7 @@ const App: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-12 w-full max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex items-center gap-2">
-              <span className="text-xl font-black tracking-tighter text-[#dae2fd] uppercase font-inter leading-none">SHREYASH</span>
+              <span className="text-xl font-black tracking-tighter text-[#dae2fd] uppercase font-inter leading-none">SHREYASH GUPTA</span>
             </div>
             <p className="text-xs font-bold text-on-surface-variant opacity-60 tracking-widest font-inter text-center md:text-left">
               © 2024 SHREYASH GUPTA // AI DEVELOPER & DATA ENGINEER

@@ -14,7 +14,13 @@
   }
   
   .gradient-text {
-    @apply bg-gradient-to-tr from-primary to-tertiary bg-clip-text text-transparent;
+    @apply bg-gradient-to-tr from-primary via-secondary to-tertiary bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: gradient-shift 8s ease infinite;
+  }
+  
+  .hue-cycle {
+    animation: hue-rotate 12s linear infinite;
   }
   
   .neural-mesh {
@@ -35,6 +41,17 @@
   0% { transform: translateY(0px) rotate(0deg); }
   50% { transform: translateY(-10px) rotate(1deg); }
   100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes hue-rotate {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(360deg); }
 }
 
 .float-animation {

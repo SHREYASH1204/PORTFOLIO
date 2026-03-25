@@ -92,14 +92,53 @@ export const projects: Project[] = [
   }
 ];
 
-export const skills = [
-  { name: "Python", level: 95 },
-  { name: "Machine Learning", level: 90 },
-  { name: "React", level: 88 },
-  { name: "Flutter", level: 85 },
-  { name: "Data Analytics", level: 92 },
-  { name: "NLP", level: 87 }
+export const skillCategories = [
+  {
+    title: "Languages",
+    icon: "Code2",
+    skills: [
+      { name: "Python", level: 95 },
+      { name: "C++", level: 90 },
+      { name: "C", level: 85 },
+      { name: "Dart", level: 88 }
+    ]
+  },
+  {
+    title: "AI & Libraries",
+    icon: "BrainCircuit",
+    skills: [
+      { name: "PyTorch", level: 88 },
+      { name: "OpenCV", level: 90 },
+      { name: "NumPy", level: 95 },
+      { name: "Pandas", level: 94 },
+      { name: "Sci-kit Learn", level: 87 }
+    ]
+  },
+  {
+    title: "Frameworks & Web",
+    icon: "Globe",
+    skills: [
+      { name: "React", level: 88 },
+      { name: "Flutter", level: 85 },
+      { name: "FastAPI", level: 85 },
+      { name: "Flask", level: 82 },
+      { name: "Django", level: 80 }
+    ]
+  },
+  {
+    title: "Tools & Cloud",
+    icon: "TerminalSquare",
+    skills: [
+      { name: "Power BI", level: 90 },
+      { name: "Git/GitHub", level: 92 },
+      { name: "Firebase", level: 85 },
+      { name: "Supabase", level: 80 },
+      { name: "Kaggle", level: 88 }
+    ]
+  }
 ];
+
+export const skills = skillCategories.flatMap(cat => cat.skills);
 
 export const achievements = [
   {
@@ -109,7 +148,7 @@ export const achievements = [
   },
   {
     title: "Research Publication",
-    details: 'Presented research on "An AI powered situational Awareness platform" at S4DS Kolkata Conference.',
+    details: 'Presented research on "An AI powered situational Awareness platform" at ICDMAI and S4DS Kolkata Conference.',
     icon: "book"
   },
   {

@@ -24,7 +24,7 @@ export const Hero: React.FC = () => {
       {/* Dynamic 3D Glow */}
       <motion.div 
         style={{ x: mouseX, y: mouseY }}
-        className="absolute -top-24 -left-24 w-96 h-96 bg-primary/20 blur-[120px] rounded-full pointer-events-none opacity-30 mix-blend-screen"
+        className="absolute -top-24 -left-24 w-96 h-96 bg-primary/20 blur-[120px] rounded-full pointer-events-none opacity-30 mix-blend-screen hue-cycle"
       />
       <motion.div 
         initial={{ opacity: 0, scale: 0.9 }}
@@ -44,7 +44,7 @@ export const Hero: React.FC = () => {
         className="text-4xl md:text-6xl font-black tracking-tight mb-8 leading-[1.1] text-on-surface text-inter animate-fade-in drop-shadow-2xl"
       >
         Shreyash Gupta<br />
-        <span className="gradient-text drop-shadow-[0px_10px_30px_rgba(192,193,255,0.3)]">AI Developer & Data Engineer</span>
+        <span className="gradient-text drop-shadow-[0px_10px_30px_rgba(0,238,255,0.3)]">AI Developer & Data Engineer</span>
       </motion.h1>
 
       <motion.p 
@@ -66,7 +66,7 @@ export const Hero: React.FC = () => {
           href={socialLinks.github} 
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-gradient-to-tr from-[#4b4dd8] to-[#571bc1] text-white px-8 py-4 rounded-xl font-bold tracking-tight shadow-xl shadow-primary-container/20 hover:shadow-primary-container/40 hover:-translate-y-1 transition-all duration-300 active:scale-95"
+          className="bg-gradient-to-tr from-primary to-secondary text-background px-8 py-4 rounded-xl font-bold tracking-tight shadow-xl shadow-primary-container/20 hover:shadow-primary-container/40 hover:-translate-y-1 transition-all duration-300 active:scale-95"
         >
           GitHub
         </a>
