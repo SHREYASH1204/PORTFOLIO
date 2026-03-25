@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SG_ARCHITECT // Shreyash Gupta</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary": "#d0bcff",
+            "on-surface-variant": "#c7c4d8",
+            "surface-container-lowest": "#060e20",
+            "error-container": "#93000a",
+            "outline": "#918fa1",
+            "on-tertiary-fixed": "#001a42",
+            "primary-fixed-dim": "#c0c1ff",
+            "surface-container-high": "#222a3d",
+            "on-secondary": "#3c0091",
+            "surface": "#0b1326",
+            "primary": "#c0c1ff",
+            "inverse-primary": "#494bd6",
+            "inverse-on-surface": "#283044",
+            "tertiary-fixed-dim": "#adc6ff",
+            "outline-variant": "#464555",
+            "on-tertiary": "#002e6a",
+            "surface-container-highest": "#2d3449",
+            "surface-dim": "#0b1326",
+            "inverse-surface": "#dae2fd",
+            "tertiary-fixed": "#d8e2ff",
+            "on-error": "#690005",
+            "surface-container-low": "#131b2e",
+            "on-primary": "#1000a9",
+            "on-tertiary-fixed-variant": "#004395",
+            "on-secondary-fixed-variant": "#5516be",
+            "on-primary-fixed": "#07006c",
+            "secondary-container": "#571bc1",
+            "background": "#0b1326",
+            "on-primary-fixed-variant": "#2f2ebe",
+            "on-tertiary-container": "#cedbff",
+            "surface-container": "#171f33",
+            "primary-container": "#4b4dd8",
+            "surface-bright": "#31394d",
+            "on-secondary-container": "#c4abff",
+            "on-secondary-fixed": "#23005c",
+            "on-background": "#dae2fd",
+            "error": "#ffb4ab",
+            "on-primary-container": "#d9d8ff",
+            "surface-tint": "#c0c1ff",
+            "tertiary-container": "#005cc6",
+            "primary-fixed": "#e1e0ff",
+            "secondary-fixed-dim": "#d0bcff",
+            "on-surface": "#dae2fd",
+            "on-error-container": "#ffdad6",
+            "tertiary": "#adc6ff",
+            "surface-variant": "#2d3449",
+            "secondary-fixed": "#e9ddff"
+          },
+          fontFamily: {
+            "headline": ["Inter", "sans-serif"],
+            "body": ["Inter", "sans-serif"],
+            "label": ["Inter", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #0b1326;
+      font-family: 'Inter', sans-serif;
+      color: #dae2fd;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(45, 52, 73, 0.4);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(70, 69, 85, 0.15);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #c0c1ff 0%, #adc6ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .neural-mesh {
+      background-image: radial-gradient(circle at 2px 2px, rgba(192, 193, 255, 0.05) 1px, transparent 0);
+      background-size: 40px 40px;
+    }
+    .progress-bar {
+      position: relative;
+      height: 6px;
+      width: 100%;
+      background: rgba(70, 69, 85, 0.3);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #4b4dd8, #c0c1ff);
+      border-radius: 3px;
+      transition: width 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0b1326]/60 backdrop-blur-xl border-b border-[#464555]/15 shadow-2xl shadow-[#0b1326]/50">
+<div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#c0c1ff]" data-icon="polyline">polyline</span>
+<span class="text-xl font-black tracking-tighter text-[#dae2fd] uppercase font-['Inter']">SG_ARCHITECT</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-[#c0c1ff] font-bold text-sm tracking-widest hover:bg-[#2d3449]/40 px-3 py-1 rounded transition-all duration-300" href="#">HOME</a>
+<a class="text-[#c7c4d8] hover:text-[#dae2fd] text-sm tracking-widest hover:bg-[#2d3449]/40 px-3 py-1 rounded transition-all duration-300" href="#projects">PROJECTS</a>
+<a class="text-[#c7c4d8] hover:text-[#dae2fd] text-sm tracking-widest hover:bg-[#2d3449]/40 px-3 py-1 rounded transition-all duration-300" href="#skills">SKILLS</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#c0c1ff] cursor-pointer hover:bg-[#2d3449]/40 p-2 rounded-full transition-all" data-icon="terminal">terminal</span>
+</div>
+</div>
+</header>
+<main class="relative pt-24 pb-32">
+<!-- Ambient Background Elements -->
+<div class="fixed inset-0 neural-mesh pointer-events-none"></div>
+<div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-container/10 blur-[120px] rounded-full pointer-events-none"></div>
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-6 pt-20 pb-24 flex flex-col items-center text-center relative z-10">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-highest/30 border border-outline-variant/15 mb-8">
+<div class="w-2 h-2 bg-tertiary rounded-full animate-pulse shadow-[0_0_8px_#adc6ff]"></div>
+<span class="text-[10px] uppercase tracking-[0.2em] font-semibold text-on-surface-variant">System Status: Active</span>
+</div>
+<h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight mb-6 leading-[0.9] text-on-surface">
+        Shreyash Gupta<br/>
+<span class="gradient-text">AI Architect</span>
+</h1>
+<p class="max-w-2xl text-lg md:text-xl text-on-surface-variant leading-relaxed mb-12 font-light">
+        Engineering high-dimensional data into intelligent systems. Specialist in Deep Learning, NLP, and Predictive Analytics.
+      </p>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="bg-gradient-to-tr from-[#4b4dd8] to-[#571bc1] text-white px-8 py-4 rounded-xl font-bold tracking-tight shadow-xl shadow-primary-container/20 hover:scale-105 transition-all duration-300 active:scale-95">
+          Resume.pdf
+        </button>
+<button class="glass-panel text-on-surface px-8 py-4 rounded-xl font-bold tracking-tight hover:bg-surface-variant/60 transition-all duration-300 border border-outline-variant/15">
+          Contact Me
+        </button>
+</div>
+<div class="mt-20 w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-panel p-6 rounded-xl text-left">
+<span class="material-symbols-outlined text-primary mb-4" data-icon="neurology">neurology</span>
+<h3 class="text-on-surface font-bold text-lg mb-2">Neural Engineering</h3>
+<p class="text-on-surface-variant text-sm">Building transformer-based architectures and fine-tuning LLMs for domain-specific tasks.</p>
+</div>
+<div class="glass-panel p-6 rounded-xl text-left">
+<span class="material-symbols-outlined text-tertiary mb-4" data-icon="database">database</span>
+<h3 class="text-on-surface font-bold text-lg mb-2">Data Integrity</h3>
+<p class="text-on-surface-variant text-sm">Optimizing large-scale data pipelines for real-time inference and transaction risk detection.</p>
+</div>
+<div class="glass-panel p-6 rounded-xl text-left">
+<span class="material-symbols-outlined text-secondary mb-4" data-icon="monitoring">monitoring</span>
+<h3 class="text-on-surface font-bold text-lg mb-2">Predictive Vision</h3>
+<p class="text-on-surface-variant text-sm">Implementing computer vision systems for safety, crowd management, and emotion detection.</p>
+</div>
+</div>
+</section>
+<!-- Skills Section -->
+<section class="max-w-7xl mx-auto px-6 py-20 relative z-10" id="skills">
+<div class="flex items-end justify-between mb-16">
+<div>
+<span class="label-md text-primary tracking-[0.3em] font-bold uppercase block mb-2">Expertise</span>
+<h2 class="text-4xl font-bold text-on-surface tracking-tight">Core Competencies</h2>
+</div>
+<div class="hidden md:block h-px flex-1 bg-outline-variant/20 mx-12 mb-2"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-on-surface font-bold tracking-tight">Python</span>
+<span class="text-primary font-mono text-sm">95%</span>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width: 95%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-on-surface font-bold tracking-tight">Machine Learning</span>
+<span class="text-primary font-mono text-sm">90%</span>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width: 90%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-on-surface font-bold tracking-tight">React</span>
+<span class="text-primary font-mono text-sm">88%</span>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width: 88%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<span class="text-on-surface font-bold tracking-tight">Flutter</span>
+<span class="text-primary font-mono text-sm">85%</span>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" style="width: 85%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Projects Grid -->
+<section class="max-w-7xl mx-auto px-6 py-20 relative z-10" id="projects">
+<div class="flex items-end justify-between mb-16">
+<div>
+<span class="label-md text-primary tracking-[0.3em] font-bold uppercase block mb-2">Showcase</span>
+<h2 class="text-4xl font-bold text-on-surface tracking-tight">Technical Portfolio</h2>
+</div>
+<div class="hidden md:block h-px flex-1 bg-outline-variant/20 mx-12 mb-2"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+<!-- Project 1: VH24 AI Advisor (New) -->
+<div class="group relative">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-tertiary/20 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative glass-panel rounded-xl overflow-hidden border border-outline-variant/15 flex flex-col hover:-translate-y-2 transition-transform duration-500">
+<div class="bg-surface-container-high/80 px-4 py-3 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+<div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+<div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono tracking-widest opacity-50 uppercase">advisor_core.js</span>
+</div>
+<div class="p-8">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-2xl font-bold text-on-surface">VH24 AI Advisor</h3>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">FINANCIAL AI</span>
+</div>
+<p class="text-on-surface-variant mb-8 leading-relaxed">
+                AI financial platform providing personalized investment recommendations for stocks, bonds, and IPOs tailored to user risk profiles. Uses Gemini API and Yahoo Finance for 5-year market forecasting.
+              </p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">Gemini AI</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">Python</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">React</span>
+</div>
+<a class="inline-flex items-center gap-2 text-primary text-sm font-bold tracking-widest hover:gap-4 transition-all" href="https://github.com/SHREYASH1204/VH24_NemoHacks" target="_blank">
+                REPOSITORY <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Project 2: Intellex -->
+<div class="group relative lg:mt-12">
+<div class="absolute -inset-1 bg-gradient-to-r from-secondary/20 to-primary/20 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative glass-panel rounded-xl overflow-hidden border border-outline-variant/15 flex flex-col hover:-translate-y-2 transition-transform duration-500">
+<div class="bg-surface-container-high/80 px-4 py-3 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+<div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+<div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono tracking-widest opacity-50 uppercase">intellex_v1.0.sh</span>
+</div>
+<div class="p-8">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-2xl font-bold text-on-surface">Intellex</h3>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">AI KNOWLEDGE HUB</span>
+</div>
+<p class="text-on-surface-variant mb-8 leading-relaxed">
+                Advanced AI Knowledge Hub leveraging LLaMA 3.3 for document analysis and Q&amp;A with context-aware retrieval. Designed for corporate intelligence.
+              </p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">LLaMA</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">Python</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">Machine Learning</span>
+</div>
+<a class="inline-flex items-center gap-2 text-primary text-sm font-bold tracking-widest hover:gap-4 transition-all" href="https://github.com/shreyash1204/AlgoForge" target="_blank">
+                REPOSITORY <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Project 3: AML Monitor -->
+<div class="group relative">
+<div class="absolute -inset-1 bg-gradient-to-r from-tertiary/20 to-secondary/20 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative glass-panel rounded-xl overflow-hidden border border-outline-variant/15 flex flex-col hover:-translate-y-2 transition-transform duration-500">
+<div class="bg-surface-container-high/80 px-4 py-3 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+<div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+<div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono tracking-widest opacity-50 uppercase">aml_audit.py</span>
+</div>
+<div class="p-8">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-2xl font-bold text-on-surface">AML Monitor</h3>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">FINTECH RISK</span>
+</div>
+<p class="text-on-surface-variant mb-8 leading-relaxed">
+                AI-powered transaction monitoring system that classifies financial risks into low, medium, and high categories. Features real-time risk dashboards, dynamic account blocking, and automated report generation.
+              </p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">Python</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">Machine Learning</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">React</span>
+</div>
+<a class="inline-flex items-center gap-2 text-primary text-sm font-bold tracking-widest hover:gap-4 transition-all" href="https://github.com/SHREYASH1204/Codeissance-2k24" target="_blank">
+                REPOSITORY <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Project 4: Kavach -->
+<div class="group relative lg:mt-12">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-error-container/20 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative glass-panel rounded-xl overflow-hidden border border-outline-variant/15 flex flex-col hover:-translate-y-2 transition-transform duration-500">
+<div class="bg-surface-container-high/80 px-4 py-3 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+<div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+<div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono tracking-widest opacity-50 uppercase">kavach_core.py</span>
+</div>
+<div class="p-8">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-2xl font-bold text-on-surface">Kavach</h3>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">LAW ENFORCEMENT</span>
+</div>
+<p class="text-on-surface-variant mb-8 leading-relaxed">
+                Law Enforcement &amp; Public Safety platform for case management and officer communication, engineered to enhance safety through predictive analysis.
+              </p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">React Native</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">FastAPI</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">TensorFlow</span>
+</div>
+<a class="inline-flex items-center gap-2 text-primary text-sm font-bold tracking-widest hover:gap-4 transition-all" href="https://github.com/shreyash1204/Kavach" target="_blank">
+                REPOSITORY <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Project 5: VidAI -->
+<div class="group relative">
+<div class="absolute -inset-1 bg-gradient-to-r from-secondary-fixed-dim/20 to-primary/20 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative glass-panel rounded-xl overflow-hidden border border-outline-variant/15 flex flex-col hover:-translate-y-2 transition-transform duration-500">
+<div class="bg-surface-container-high/80 px-4 py-3 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+<div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+<div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono tracking-widest opacity-50 uppercase">vidai_render.ts</span>
+</div>
+<div class="p-8">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-2xl font-bold text-on-surface">VidAI</h3>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">VIDEO ANALYSIS</span>
+</div>
+<p class="text-on-surface-variant mb-8 leading-relaxed">
+                Emotion-based highlight reel generation from video content that uses facial expression recognition to curate the most impactful moments.
+              </p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">PyTorch</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">OpenCV</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">FFmpeg</span>
+</div>
+<a class="inline-flex items-center gap-2 text-primary text-sm font-bold tracking-widest hover:gap-4 transition-all" href="https://github.com/shreyash1204/VidAI" target="_blank">
+                REPOSITORY <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Project 6: DRISHTI -->
+<div class="group relative lg:mt-12">
+<div class="absolute -inset-1 bg-gradient-to-r from-tertiary/20 to-primary/20 rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative glass-panel rounded-xl overflow-hidden border border-outline-variant/15 flex flex-col hover:-translate-y-2 transition-transform duration-500">
+<div class="bg-surface-container-high/80 px-4 py-3 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+<div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+<div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant font-mono tracking-widest opacity-50 uppercase">drishti_eye.log</span>
+</div>
+<div class="p-8">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-2xl font-bold text-on-surface">DRISHTI</h3>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">CROWD ANALYTICS</span>
+</div>
+<p class="text-on-surface-variant mb-8 leading-relaxed">
+                Computer vision for crowd management and stampede detection using YOLO-based object detection and real-time trajectory estimation.
+              </p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">YOLOv8</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">CUDA</span>
+<span class="px-3 py-1 rounded-full bg-surface-container-low text-[10px] text-on-surface-variant border border-outline-variant/10 uppercase tracking-wider">Grafana</span>
+</div>
+<a class="inline-flex items-center gap-2 text-primary text-sm font-bold tracking-widest hover:gap-4 transition-all" href="https://github.com/shreyash1204/DRISHTI" target="_blank">
+                REPOSITORY <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-8 items-center z-50 bg-[#171f33]/80 backdrop-blur-2xl rounded-full px-6 py-3 w-auto min-w-[280px] border border-[#464555]/20 shadow-[0px_24px_48px_rgba(11,13,38,0.5)]">
+<a class="flex items-center justify-center bg-gradient-to-tr from-[#4b4dd8] to-[#571bc1] text-white rounded-full p-3 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</a>
+<a class="flex items-center justify-center text-[#c7c4d8] p-3 hover:text-[#c0c1ff] transition-colors active:scale-90 duration-150" href="#projects">
+<span class="material-symbols-outlined" data-icon="code">code</span>
+</a>
+<a class="flex items-center justify-center text-[#c7c4d8] p-3 hover:text-[#c0c1ff] transition-colors active:scale-90 duration-150" href="#skills">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+</a>
+<a class="flex items-center justify-center text-[#c7c4d8] p-3 hover:text-[#c0c1ff] transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 bg-[#0b1326] border-t border-[#131b2e]">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-2">
+<span class="font-bold text-[#dae2fd] text-sm font-['Inter']">© 2024 SHREYASH GUPTA // NEURAL PRISM</span>
+</div>
+<div class="flex items-center gap-8">
+<a class="text-[12px] font-['Inter'] tracking-[0.1em] uppercase text-[#c7c4d8] hover:text-[#c0c1ff] transition-colors opacity-80 hover:opacity-100" href="#">GitHub</a>
+<a class="text-[12px] font-['Inter'] tracking-[0.1em] uppercase text-[#c7c4d8] hover:text-[#c0c1ff] transition-colors opacity-80 hover:opacity-100" href="#">LinkedIn</a>
+<a class="text-[12px] font-['Inter'] tracking-[0.1em] uppercase text-[#c7c4d8] hover:text-[#c0c1ff] transition-colors opacity-80 hover:opacity-100" href="#">Twitter</a>
+</div>
+</div>
+</footer>
+</body></html>
