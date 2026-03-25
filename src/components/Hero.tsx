@@ -53,7 +53,7 @@ export const Hero: React.FC = () => {
         transition={{ duration: 0.6, delay: 0.4 }}
         className="max-w-xl text-base md:text-lg text-on-surface-variant leading-relaxed mb-12 font-light text-inter opacity-80"
       >
-        Engineering high-dimensional data into intelligent systems. Specialist in Deep Learning, NLP, and Predictive Analytics.
+        Engineering high-dimensional data into intelligent systems. Specialist in Deep Learning, NLP, and Predictive Analytics. Available for Freelance Data Analytics projects.
       </motion.p>
 
       <motion.div 
