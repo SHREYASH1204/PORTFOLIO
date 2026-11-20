@@ -30,10 +30,10 @@ export const CardistryExperience: React.FC = () => {
           </div>
 
           {/* Flourish selector buttons */}
-          <div className="flex items-center gap-1.5 p-1 rounded-lg bg-black/40 border border-white/10">
+          <div className="flex items-center gap-1.5 p-1 rounded-lg bg-black/40 border border-white/10 overflow-x-auto no-scrollbar max-w-full">
             <button
               onClick={() => setFlourish('fan')}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-all ${
+              className={`px-2.5 py-1 rounded text-xs font-mono transition-all whitespace-nowrap active:scale-95 ${
                 flourish === 'fan' ? 'bg-violet-500/20 text-violet-300 border border-violet-500/30' : 'text-neutral-400 hover:text-white'
               }`}
             >
@@ -41,7 +41,7 @@ export const CardistryExperience: React.FC = () => {
             </button>
             <button
               onClick={() => setFlourish('charlier')}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-all ${
+              className={`px-2.5 py-1 rounded text-xs font-mono transition-all whitespace-nowrap active:scale-95 ${
                 flourish === 'charlier' ? 'bg-violet-500/20 text-violet-300 border border-violet-500/30' : 'text-neutral-400 hover:text-white'
               }`}
             >
@@ -49,7 +49,7 @@ export const CardistryExperience: React.FC = () => {
             </button>
             <button
               onClick={() => setFlourish('sybil')}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-all ${
+              className={`px-2.5 py-1 rounded text-xs font-mono transition-all whitespace-nowrap active:scale-95 ${
                 flourish === 'sybil' ? 'bg-violet-500/20 text-violet-300 border border-violet-500/30' : 'text-neutral-400 hover:text-white'
               }`}
             >
@@ -57,7 +57,7 @@ export const CardistryExperience: React.FC = () => {
             </button>
             <button
               onClick={() => setFlourish('idle')}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-all ${
+              className={`px-2.5 py-1 rounded text-xs font-mono transition-all whitespace-nowrap active:scale-95 ${
                 flourish === 'idle' ? 'bg-white/20 text-white' : 'text-neutral-400 hover:text-white'
               }`}
             >
@@ -68,6 +68,7 @@ export const CardistryExperience: React.FC = () => {
 
         {/* 3D Playing Card Simulation Stage */}
         <div className="relative h-64 w-full flex items-center justify-center perspective-[1000px] overflow-hidden bg-space-950/80 rounded-xl border border-white/5">
+          <div className="relative w-full h-full flex items-center justify-center transform scale-[0.82] sm:scale-100 transition-transform">
           {/* Deck of 7 visual cards */}
           {[
             { id: 1, label: 'A♠', color: 'text-white' },
@@ -123,6 +124,7 @@ export const CardistryExperience: React.FC = () => {
               </div>
             );
           })}
+          </div>
         </div>
       </div>
 

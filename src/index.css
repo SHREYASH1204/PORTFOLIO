@@ -7,11 +7,22 @@
     color-scheme: dark;
   }
   
-  body {
+  html, body {
     background-color: #050508;
     color: #e2e8f0;
     overflow: hidden;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    height: 100%;
+    width: 100%;
+  }
+
+  /* Prevent overscroll bounce on mobile */
+  body {
+    overscroll-behavior-y: none;
+    position: fixed;
+    inset: 0;
   }
 }
 

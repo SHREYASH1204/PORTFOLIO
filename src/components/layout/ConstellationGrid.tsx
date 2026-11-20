@@ -14,26 +14,26 @@ export const ConstellationGrid: React.FC = () => {
   const categories = Object.values(CATEGORIES);
 
   return (
-    <div className="absolute inset-0 z-20 pt-20 pb-24 px-4 md:px-12 overflow-y-auto no-scrollbar bg-space-950/95 backdrop-blur-md animate-fade-in">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="absolute inset-0 z-20 pt-16 sm:pt-20 pb-28 md:pb-24 px-3 sm:px-6 md:px-12 overflow-y-auto no-scrollbar bg-space-950/95 backdrop-blur-md animate-fade-in">
+      <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
         {/* Header title */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4 border-b border-white/10 pb-4 sm:pb-6">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-cyan-400 mb-1">
               <Sparkles size={14} />
               Constellation Archive
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white">
               Universe Exploration Grid
             </h1>
-            <p className="text-sm text-neutral-400 font-mono mt-1">
+            <p className="text-xs sm:text-sm text-neutral-400 font-mono mt-1">
               {filteredNodes.length} nodes cataloged across engineering, competitions, and life.
             </p>
           </div>
 
           <button
             onClick={() => setViewMode('3d')}
-            className="self-start md:self-auto glass-panel px-4 py-2 rounded-full text-xs font-mono text-cyan-300 hover:text-white border-cyan-500/30 hover:border-cyan-400/60 transition-all flex items-center gap-2"
+            className="self-start md:self-auto glass-panel px-3.5 py-2 rounded-full text-xs font-mono text-cyan-300 hover:text-white border-cyan-500/30 hover:border-cyan-400/60 active:scale-95 transition-all flex items-center gap-2"
           >
             <Box size={14} />
             <span>Return to 3D Orbit View</span>

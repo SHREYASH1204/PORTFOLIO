@@ -32,19 +32,19 @@ export const DrishtiVisualizer: React.FC = () => {
       </div>
 
       {/* Tabs navigation */}
-      <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+      <div className="flex items-center gap-1.5 sm:gap-2 border-b border-white/10 pb-2 overflow-x-auto no-scrollbar max-w-full">
         <button
           onClick={() => setActiveTab('vision')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 whitespace-nowrap active:scale-95 flex-shrink-0 ${
             activeTab === 'vision' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' : 'text-neutral-400 hover:text-white'
           }`}
         >
           <Activity size={13} />
-          Vision Core & Risk Modeling
+          Vision Core
         </button>
         <button
           onClick={() => setActiveTab('ecosystem')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 whitespace-nowrap active:scale-95 flex-shrink-0 ${
             activeTab === 'ecosystem' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' : 'text-neutral-400 hover:text-white'
           }`}
         >
@@ -53,7 +53,7 @@ export const DrishtiVisualizer: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('fest')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all flex items-center gap-1.5 whitespace-nowrap active:scale-95 flex-shrink-0 ${
             activeTab === 'fest' ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30' : 'text-neutral-400 hover:text-white'
           }`}
         >
@@ -66,7 +66,7 @@ export const DrishtiVisualizer: React.FC = () => {
       {activeTab === 'vision' && (
         <div className="space-y-4">
           <div className="glass-panel p-4 rounded-xl border border-white/10 space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
               <div>
                 <div className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-semibold">
                   OpenCV MOG2 Real-Time Density & Z-Score Engine
@@ -77,7 +77,7 @@ export const DrishtiVisualizer: React.FC = () => {
               </div>
 
               {/* Simulation Toggle */}
-              <div className="flex items-center gap-1.5 p-1 rounded-lg bg-black/50 border border-white/10">
+              <div className="flex items-center gap-1.5 p-1 rounded-lg bg-black/50 border border-white/10 self-start sm:self-auto">
                 <button
                   onClick={() => setDensitySimulation('normal')}
                   className={`px-2.5 py-1 rounded text-xs font-mono transition-all ${

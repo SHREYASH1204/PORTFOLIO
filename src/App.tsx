@@ -13,7 +13,7 @@ export const App: React.FC = () => {
   const { viewMode } = useUniverse();
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#050508] text-white select-none font-sans">
+    <div className="fixed inset-0 w-full h-full h-[100dvh] overflow-hidden bg-[#050508] text-white select-none font-sans">
       {/* 1. Header with Filters & Quick Links */}
       <CosmicHeader />
 

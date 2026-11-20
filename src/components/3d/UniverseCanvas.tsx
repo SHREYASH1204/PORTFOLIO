@@ -125,6 +125,11 @@ export const UniverseCanvas: React.FC = () => {
   const sphericalCoords = useRef({ ...INITIAL_ORBIT });
   const dampingVelocity = useRef({ theta: 0, phi: 0 });
 
+  // Multi-touch tracking for pinch-to-zoom on mobile
+  const activePointers = useRef<Map<number, { x: number; y: number }>>(new Map());
+  const pinchStartDist = useRef<number | null>(null);
+  const pinchStartRadius = useRef<number | null>(null);
+
   // Raycaster for interactions
   const raycaster = useRef(new THREE.Raycaster());
   const mouseVec = useRef(new THREE.Vector2(-999, -999));
@@ -141,6 +146,9 @@ export const UniverseCanvas: React.FC = () => {
     const width = container.clientWidth;
     const height = container.clientHeight;
 
+    // Check if mobile viewport
+    const isMobile = window.innerWidth < 768;
+
     // 1. Scene
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x050508, 0.016);
@@ -153,17 +161,17 @@ export const UniverseCanvas: React.FC = () => {
     camera.lookAt(0, 1.2, 0);
     cameraRef.current = camera;
 
-    // 3. Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    // 3. Renderer - Optimized DPR for mobile battery & performance
+    const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25;
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 4. Background Starfield
-    const starCount = 1400;
+    // 4. Background Starfield - Streamlined count for mobile GPUs
+    const starCount = isMobile ? 800 : 1400;
     const starGeo = new THREE.BufferGeometry();
     const starPositions = new Float32Array(starCount * 3);
     const starColors = new Float32Array(starCount * 3);
@@ -259,7 +267,7 @@ export const UniverseCanvas: React.FC = () => {
       const baseSize = (node.size || 2.0) * 0.45;
 
       // Inner Core Sphere
-      const coreGeo = new THREE.SphereGeometry(baseSize, 28, 28);
+      const coreGeo = new THREE.SphereGeometry(baseSize, isMobile ? 18 : 28, isMobile ? 18 : 28);
       const coreMat = new THREE.MeshStandardMaterial({
         color: catColor,
         emissive: catColor,
@@ -272,7 +280,7 @@ export const UniverseCanvas: React.FC = () => {
       group.add(coreMesh);
 
       // Outer Glow Halo
-      const haloGeo = new THREE.SphereGeometry(baseSize * 1.5, 20, 20);
+      const haloGeo = new THREE.SphereGeometry(baseSize * 1.5, isMobile ? 14 : 20, isMobile ? 14 : 20);
       const haloMat = new THREE.MeshBasicMaterial({
         color: catColor,
         transparent: true,
@@ -285,7 +293,7 @@ export const UniverseCanvas: React.FC = () => {
       group.add(haloMesh);
 
       // Pulsing atmospheric shell
-      const shellGeo = new THREE.RingGeometry(baseSize * 1.6, baseSize * 2.1, 32);
+      const shellGeo = new THREE.RingGeometry(baseSize * 1.6, baseSize * 2.1, isMobile ? 22 : 32);
       const shellMat = new THREE.MeshBasicMaterial({
         color: catColor,
         transparent: true,
@@ -456,8 +464,10 @@ export const UniverseCanvas: React.FC = () => {
       targetCamLookAt.current.copy(targetVec);
 
       const offset = targetVec.clone().normalize().multiplyScalar(7.2);
-      const shiftX = window.innerWidth > 768 ? -2.4 : 0;
-      targetCamPos.current.copy(targetVec).add(offset).add(new THREE.Vector3(shiftX, 1.0, 0));
+      const isMobile = window.innerWidth < 768;
+      const shiftX = isMobile ? 0 : -2.4;
+      const shiftY = isMobile ? 2.2 : 1.0;
+      targetCamPos.current.copy(targetVec).add(offset).add(new THREE.Vector3(shiftX, shiftY, 0));
     } else {
       // Smoothly return to the balanced home view (Image 1)
       sphericalCoords.current = { ...INITIAL_ORBIT };
@@ -506,18 +516,56 @@ export const UniverseCanvas: React.FC = () => {
     };
   }, [isAutoExploring, setSelectedNode]);
 
-  // POINTER EVENT HANDLERS (Rock-solid Touchpad & Mouse Handling)
+  // POINTER & TOUCH EVENT HANDLERS (With Pinch-To-Zoom & Touch Gestures)
   const handlePointerDown = (e: React.PointerEvent) => {
-    isPointerDown.current = true;
-    isDragging.current = false;
-    pointerStart.current = { x: e.clientX, y: e.clientY, time: Date.now() };
-    previousMousePosition.current = { x: e.clientX, y: e.clientY };
+    activePointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    // Handle 2-finger pinch initiation
+    if (activePointers.current.size === 2) {
+      const points = Array.from(activePointers.current.values());
+      pinchStartDist.current = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+      pinchStartRadius.current = sphericalCoords.current.radius;
+      isDragging.current = false;
+      return;
+    }
+
+    if (activePointers.current.size === 1) {
+      isPointerDown.current = true;
+      isDragging.current = false;
+      pointerStart.current = { x: e.clientX, y: e.clientY, time: Date.now() };
+      previousMousePosition.current = { x: e.clientX, y: e.clientY };
+    }
   };
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     const container = mountRef.current;
     if (!container || !cameraRef.current) return;
 
+    if (activePointers.current.has(e.pointerId)) {
+      activePointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    }
+
+    // 1. Two-finger pinch-to-zoom on mobile
+    if (activePointers.current.size === 2 && pinchStartDist.current && pinchStartRadius.current) {
+      const points = Array.from(activePointers.current.values());
+      const currentDist = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+      if (currentDist > 5) {
+        const scale = pinchStartDist.current / currentDist;
+        const newRadius = Math.max(9, Math.min(48, pinchStartRadius.current * scale));
+        sphericalCoords.current.radius = newRadius;
+
+        if (!selectedNode) {
+          const { radius, theta, phi } = sphericalCoords.current;
+          const x = radius * Math.sin(phi) * Math.cos(theta);
+          const y = radius * Math.cos(phi) + 1.2;
+          const z = radius * Math.sin(phi) * Math.sin(theta);
+          targetCamPos.current.set(x, y, z);
+        }
+      }
+      return;
+    }
+
+    // 2. Single-pointer move / orbit drag
     const rect = container.getBoundingClientRect();
     const mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     const mouseY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
@@ -533,7 +581,8 @@ export const UniverseCanvas: React.FC = () => {
         const deltaX = e.clientX - previousMousePosition.current.x;
         const deltaY = e.clientY - previousMousePosition.current.y;
 
-        const rotSpeed = 0.005;
+        const isMobile = window.innerWidth < 768;
+        const rotSpeed = isMobile ? 0.007 : 0.005;
         sphericalCoords.current.theta -= deltaX * rotSpeed;
         sphericalCoords.current.phi -= deltaY * rotSpeed;
 
@@ -547,8 +596,8 @@ export const UniverseCanvas: React.FC = () => {
         previousMousePosition.current = { x: e.clientX, y: e.clientY };
         container.style.cursor = 'grabbing';
       }
-    } else {
-      // Just moving cursor WITHOUT pressing: NEVER rotate camera!
+    } else if (e.pointerType !== 'touch') {
+      // Just moving cursor WITHOUT pressing on desktop: NEVER rotate camera!
       raycaster.current.setFromCamera(mouseVec.current, cameraRef.current);
       const objectsToTest: THREE.Object3D[] = [];
       nodesMeshMap.current.forEach(group => {
@@ -570,10 +619,17 @@ export const UniverseCanvas: React.FC = () => {
       setHoveredNode(null);
       container.style.cursor = 'default';
     }
-  }, [setHoveredNode]);
+  }, [setHoveredNode, selectedNode]);
 
   const handlePointerUp = (e: React.PointerEvent) => {
     const container = mountRef.current;
+    activePointers.current.delete(e.pointerId);
+
+    if (activePointers.current.size < 2) {
+      pinchStartDist.current = null;
+      pinchStartRadius.current = null;
+    }
+
     const deltaMove = Math.hypot(
       e.clientX - pointerStart.current.x,
       e.clientY - pointerStart.current.y
@@ -582,11 +638,20 @@ export const UniverseCanvas: React.FC = () => {
 
     isPointerDown.current = false;
 
-    // IF was NOT dragging and move was small -> Clean deliberate click/tap!
-    if (!isDragging.current && deltaMove < 8 && duration < 400 && cameraRef.current) {
+    // IF was NOT dragging and move was small -> Clean deliberate click or tap!
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const maxTapMove = isMobile ? 12 : 8;
+    const maxTapDuration = isMobile ? 450 : 400;
+
+    if (!isDragging.current && deltaMove < maxTapMove && duration < maxTapDuration && cameraRef.current && container) {
       dampingVelocity.current = { theta: 0, phi: 0 };
 
-      raycaster.current.setFromCamera(mouseVec.current, cameraRef.current);
+      const rect = container.getBoundingClientRect();
+      const clickX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const clickY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      const clickVec = new THREE.Vector2(clickX, clickY);
+
+      raycaster.current.setFromCamera(clickVec, cameraRef.current);
       const objectsToTest: THREE.Object3D[] = [];
       nodesMeshMap.current.forEach(group => {
         const core = group.getObjectByName('core');
@@ -615,7 +680,7 @@ export const UniverseCanvas: React.FC = () => {
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
     const zoomFactor = e.deltaY * 0.012;
-    sphericalCoords.current.radius = Math.max(9, Math.min(45, sphericalCoords.current.radius + zoomFactor));
+    sphericalCoords.current.radius = Math.max(9, Math.min(48, sphericalCoords.current.radius + zoomFactor));
     if (!selectedNode) {
       const { radius, theta, phi } = sphericalCoords.current;
       const x = radius * Math.sin(phi) * Math.cos(theta);
@@ -627,10 +692,11 @@ export const UniverseCanvas: React.FC = () => {
 
   return (
     <div 
-      className="relative w-full h-full overflow-hidden select-none"
+      className="relative w-full h-full overflow-hidden select-none touch-none"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
       onWheel={handleWheel}
     >
       {/* 3D WebGL Canvas Mount */}

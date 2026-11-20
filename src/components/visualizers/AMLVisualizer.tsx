@@ -114,7 +114,7 @@ export const AMLVisualizer: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 p-1 rounded-lg bg-black/40 border border-white/5">
+          <div className="flex items-center gap-1.5 p-1 rounded-lg bg-black/40 border border-white/5 overflow-x-auto no-scrollbar max-w-full">
             <button
               onClick={() => setPatternType('circular')}
               className={`px-2.5 py-1 rounded text-xs font-mono transition-all flex items-center gap-1.5 ${

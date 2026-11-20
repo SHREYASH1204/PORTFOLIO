@@ -76,30 +76,35 @@ export const NodeDetailDrawer: React.FC = () => {
     <div className="fixed inset-0 z-40 pointer-events-none flex justify-end">
       {/* Semi-transparent backdrop for mobile dismiss */}
       <div 
-        className="absolute inset-0 bg-black/40 backdrop-blur-[2px] pointer-events-auto md:bg-transparent"
+        className="absolute inset-0 bg-black/60 backdrop-blur-[2px] pointer-events-auto md:bg-transparent"
         onClick={() => setSelectedNode(null)}
       />
 
       {/* Main Drawer Panel (Right slide-in on desktop, bottom sheet on mobile) */}
       <div
         ref={drawerRef}
-        className="w-full md:max-w-xl lg:max-w-2xl xl:max-w-[700px] h-[90vh] md:h-full mt-[10vh] md:mt-0 glass-panel md:border-l border-t md:border-t-0 border-white/15 bg-space-900/95 text-white flex flex-col pointer-events-auto z-10 shadow-2xl overflow-y-auto no-scrollbar animate-slide-in-right"
+        className="w-full md:max-w-xl lg:max-w-2xl xl:max-w-[700px] h-[88vh] md:h-full mt-[12vh] md:mt-0 rounded-t-3xl md:rounded-none glass-panel md:border-l border-t md:border-t-0 border-white/15 bg-space-900/98 text-white flex flex-col pointer-events-auto z-10 shadow-2xl overflow-y-auto no-scrollbar animate-slide-in-right overscroll-contain"
         style={{
           boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.7)',
         }}
       >
+        {/* Mobile Pull-to-dismiss handle bar */}
+        <div className="w-full flex justify-center pt-2.5 pb-1 md:hidden bg-space-900/90">
+          <div className="w-12 h-1.5 rounded-full bg-white/25" />
+        </div>
+
         {/* Header Bar */}
-        <div className="sticky top-0 z-20 glass-panel-subtle px-6 py-4 border-b border-white/10 flex items-center justify-between bg-space-900/90 backdrop-blur-xl">
-          <div className="flex items-center gap-2">
+        <div className="sticky top-0 z-20 glass-panel-subtle px-4 py-3 sm:px-6 sm:py-4 border-b border-white/10 flex items-center justify-between bg-space-900/95 backdrop-blur-xl">
+          <div className="flex items-center gap-2 truncate">
             <span 
-              className="w-2 h-2 rounded-full shadow-sm"
+              className="w-2 h-2 rounded-full shadow-sm flex-shrink-0"
               style={{ backgroundColor: catInfo.color, boxShadow: `0 0 8px ${catInfo.color}` }}
             />
-            <span className="text-xs font-mono uppercase tracking-wider text-neutral-300">
+            <span className="text-xs font-mono uppercase tracking-wider text-neutral-300 truncate">
               {catInfo.label}
             </span>
             {selectedNode.badge && (
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 text-cyan-300 border border-white/10 ml-1">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 text-cyan-300 border border-white/10 ml-1 truncate flex-shrink-0">
                 {selectedNode.badge}
               </span>
             )}
@@ -107,7 +112,7 @@ export const NodeDetailDrawer: React.FC = () => {
 
           <button
             onClick={() => setSelectedNode(null)}
-            className="p-1.5 rounded-full text-neutral-400 hover:text-white hover:bg-white/10 transition-all"
+            className="p-2 rounded-full text-neutral-400 hover:text-white hover:bg-white/10 active:scale-90 transition-all"
             title="Close Exploration (Esc)"
           >
             <X size={18} />
@@ -115,7 +120,7 @@ export const NodeDetailDrawer: React.FC = () => {
         </div>
 
         {/* Content Body */}
-        <div className="p-6 md:p-8 space-y-6">
+        <div className="p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6 pb-[max(3rem,env(safe-area-inset-bottom))]">
           {/* Title & Subtitle */}
           <div className="space-y-2">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white leading-tight">

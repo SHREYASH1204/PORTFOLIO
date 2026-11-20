@@ -71,16 +71,16 @@ export const QuickSearchModal: React.FC = () => {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/75 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-20 px-3 sm:px-4 bg-black/80 backdrop-blur-md animate-fade-in"
       onClick={() => setIsSearching(false)}
     >
       <div 
-        className="w-full max-w-xl glass-panel rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-space-900/90 text-white flex flex-col"
+        className="w-full max-w-xl glass-panel rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-space-900/95 text-white flex flex-col"
         onClick={e => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-white/10">
-          <Search size={18} className="text-cyan-400" />
+        <div className="flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-4 py-3 sm:py-3.5 border-b border-white/10">
+          <Search size={18} className="text-cyan-400 flex-shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -90,8 +90,8 @@ export const QuickSearchModal: React.FC = () => {
               setSelectedIndex(0);
             }}
             onKeyDown={handleInputKeyDown}
-            placeholder="Search projects, technologies, hackathons, or stories..."
-            className="flex-1 bg-transparent text-sm text-white placeholder-neutral-500 focus:outline-none font-sans"
+            placeholder="Search projects, technologies, stories..."
+            className="flex-1 bg-transparent text-[15px] sm:text-sm text-white placeholder-neutral-500 focus:outline-none font-sans"
           />
           {query && (
             <button 
@@ -101,7 +101,13 @@ export const QuickSearchModal: React.FC = () => {
               <X size={14} />
             </button>
           )}
-          <kbd className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-neutral-400 font-mono">ESC</kbd>
+          <button 
+            onClick={() => setIsSearching(false)}
+            className="text-xs font-mono px-2 py-1 rounded bg-white/10 text-neutral-300 hover:text-white sm:hidden"
+          >
+            Close
+          </button>
+          <kbd className="hidden sm:inline text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-neutral-400 font-mono">ESC</kbd>
         </div>
 
         {/* Results List */}

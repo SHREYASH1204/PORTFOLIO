@@ -276,17 +276,32 @@ Feel free to ask specifically about my projects (AML Monitor, DRISHTI, Intellex)
 
   return (
     <>
-      {/* Main Chat Window (Opens directly when "Ask anything" is clicked) */}
+      {/* Backdrop on mobile when chat is open */}
+      {!isMinimized && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-40 sm:hidden"
+          onClick={() => setIsChatOpen(false)}
+        />
+      )}
+
+      {/* Main Chat Window */}
       <div 
-        className={`fixed right-4 md:right-8 z-50 transition-all duration-300 flex flex-col glass-panel rounded-2xl overflow-hidden border border-white/20 bg-space-900/95 shadow-2xl text-white ${
+        className={`fixed z-50 transition-all duration-300 flex flex-col glass-panel overflow-hidden border border-white/20 bg-space-900/98 shadow-2xl text-white ${
           isMinimized 
-            ? 'bottom-6 w-80 h-14' 
-            : 'bottom-6 w-[94vw] sm:w-[420px] md:w-[460px] h-[580px] max-h-[85vh]'
+            ? 'bottom-3 right-3 left-3 sm:left-auto sm:right-6 sm:bottom-6 sm:w-80 h-14 rounded-2xl' 
+            : 'inset-x-0 bottom-0 sm:inset-auto sm:right-6 sm:bottom-6 w-full sm:w-[420px] md:w-[460px] h-[85vh] sm:h-[580px] sm:max-h-[85vh] rounded-t-3xl sm:rounded-2xl'
         }`}
         style={{
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.15)',
         }}
       >
+          {/* Mobile Sheet Handle */}
+          {!isMinimized && (
+            <div className="w-full flex justify-center pt-2 pb-0.5 sm:hidden bg-space-950/80">
+              <div className="w-10 h-1 rounded-full bg-white/20" />
+            </div>
+          )}
+
           {/* Header */}
           <div className="px-4 py-3 border-b border-white/10 glass-panel-subtle flex items-center justify-between bg-space-950/80">
             <div className="flex items-center gap-2.5">
@@ -407,22 +422,22 @@ Feel free to ask specifically about my projects (AML Monitor, DRISHTI, Intellex)
               </div>
 
               {/* Input Bar */}
-              <div className="p-3 border-t border-white/10 glass-panel-subtle flex items-center gap-2 bg-space-950/90">
+              <div className="p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] border-t border-white/10 glass-panel-subtle flex items-center gap-2 bg-space-950/90">
                 <input
                   type="text"
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSend()}
                   placeholder="Ask Shreyash anything..."
-                  className="flex-1 bg-space-900 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-cyan-400/60 font-sans"
+                  className="flex-1 bg-space-900 border border-white/10 rounded-xl px-3.5 py-2.5 sm:py-2 text-[15px] sm:text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-cyan-400/60 font-sans"
                 />
                 <button
                   onClick={() => handleSend()}
                   disabled={!input.trim()}
-                  className="p-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 disabled:opacity-40 disabled:hover:bg-cyan-500 text-black transition-all flex items-center justify-center shadow-md shadow-cyan-950"
+                  className="p-2.5 sm:p-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 active:scale-95 disabled:opacity-40 disabled:hover:bg-cyan-500 text-black transition-all flex items-center justify-center shadow-md shadow-cyan-950 flex-shrink-0"
                   title="Send Message"
                 >
-                  <Send size={14} />
+                  <Send size={15} />
                 </button>
               </div>
             </>
